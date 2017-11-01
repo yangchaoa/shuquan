@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+    </style>
+    <script src="jquery-3.1.1.js"></script>
+    <script>
+        $(function () {
+            $('li').click(function () {
+                var s=$(this).attr('data-id')
+                var l=$(this).html()
+                console.log(l)
+                $.ajax({
+                    url:'http://localhost:3000/item/v',
+                    type:'post',
+                    data:{id:l},
+                    dataType:'json',
+                    success:function (e) {
+                        console.log(e)
+                        var a=''
+                        for(i in e){
+//                            $('#top').append("<div>"+e[i].name+"</div>")
+                            a+="<div>"+e[i].name+"</div>";
+                        }
+                        $('#top').html(a)
+                    }
+                })
+            })
+
+        })
+    </script>
+</head>
+<body>
+<ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+</ul>
+<div id="top"></div>
+</body>
+</html>
